@@ -64,12 +64,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
-    timer.start();
-    repaint();
-  }
-
-  @Override
   public void keyPressed(KeyEvent e) {
     if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       if (playerXPos >= 600) {
@@ -77,7 +71,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
       } else {
         moveRight();
       }
-    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+    }
+    if (e.getKeyCode() == KeyEvent.VK_LEFT) {
       if (playerXPos < 10) {
         playerXPos = 10;
       } else {
@@ -97,10 +92,33 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     playerXPos -= 20;
   }
 
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    timer.start();
+    if (play) {
+      ballXPos += ballXDir;
+      ballYPos += ballYDir;
+      if (ballXPos < 0) {
+        ballXDir = -ballXDir;
+      }
+      if (ballYPos < 0) {
+        ballYDir = -ballYDir;
+      }
+      if (ballXPos > 670) {
+        ballXDir = -ballXDir;
+      }
+    }
+
+    repaint();
+  }
+
   // not needed functions
   @Override
-  public void keyReleased(KeyEvent e) {}
+  public void keyReleased(KeyEvent e) {
+  }
+
   @Override
-  public void keyTyped(KeyEvent e) {}
+  public void keyTyped(KeyEvent e) {
+  }
 
 }
