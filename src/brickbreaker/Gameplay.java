@@ -38,6 +38,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
   public Gameplay() {
     addKeyListener(this);
     setFocusable(true);
+    requestFocus();
     setFocusTraversalKeysEnabled(false);
     timer = new Timer(delay, this);
     timer.start();
@@ -51,7 +52,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     // scores
     g.setColor(Color.white);
     g.setFont(new Font("serif", Font.BOLD, 25));
-    g.drawString(""+score, 675, 565);
+    g.drawString("" + score, 675, 565);
 
     // borders
     g.setColor(Color.CYAN);
@@ -69,6 +70,33 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     g.dispose();
   }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    timer.start();
+    if (play) {
+      ballXPos += ballXDir;
+      ballYPos += ballYDir;
+      if (ballXPos < 0) {
+        ballXDir = -ballXDir;
+      }
+      if (ballYPos < 0) {
+        ballYDir = -ballYDir;
+      }
+      if (ballXPos > 670) {
+        ballXDir = -ballXDir;
+      }
+    }
+    repaint();
+  }
+
+  @Override
+  public void keyReleased(KeyEvent e) {
+  } // not needed
+
+  @Override
+  public void keyTyped(KeyEvent e) {
+  } // not needed
 
   public void moveRight() {
     play = true;
@@ -99,33 +127,4 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     }
 
   }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    timer.start();
-    if (play) {
-      ballXPos += ballXDir;
-      ballYPos += ballYDir;
-      if (ballXPos < 0) {
-        ballXDir = -ballXDir;
-      }
-      if (ballYPos < 0) {
-        ballYDir = -ballYDir;
-      }
-      if (ballXPos > 670) {
-        ballXDir = -ballXDir;
-      }
-    }
-    repaint();
-  }
-
-  // not needed functions
-  @Override
-  public void keyReleased(KeyEvent e) {
-  }
-
-  @Override
-  public void keyTyped(KeyEvent e) {
-  }
-
 }
