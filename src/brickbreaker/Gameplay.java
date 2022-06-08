@@ -27,6 +27,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
   // initial positions of platform and ball
   private int playerXPos = 310;
+
   private int ballXPos = 120;
   private int ballYPos = 350;
   private int ballYDir = -1;
@@ -46,40 +47,20 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     g.fillRect(1, 1, 692, 592);
 
     // borders
-    g.setColor(Color.white);
-    g.fillRect(0, 0, 3, 592);
-    g.fillRect(0, 0, 692, 3);
-    g.fillRect(0, 0, 3, 592);
-    g.fillRect(691, 0, 3, 592);
+    g.setColor(Color.CYAN);
+    g.fillRect(0, 0, 3, 591);
+    g.fillRect(0, 0, 691, 3);
+    g.fillRect(691, 0, 3, 591);
 
     // paddle
-    g.setColor(Color.white);
+    g.setColor(Color.CYAN);
     g.fillRect(playerXPos, 550, 100, 8);
 
     // ball
-    g.setColor(Color.black);
+    g.setColor(Color.CYAN);
     g.fillOval(ballXPos, ballYPos, 20, 20);
 
     g.dispose();
-  }
-
-  @Override
-  public void keyPressed(KeyEvent e) {
-    if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-      if (playerXPos >= 600) {
-        playerXPos = 600;
-      } else {
-        moveRight();
-      }
-    }
-    if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-      if (playerXPos < 10) {
-        playerXPos = 10;
-      } else {
-        moveLeft();
-      }
-    }
-
   }
 
   public void moveRight() {
@@ -90,6 +71,26 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
   public void moveLeft() {
     play = true;
     playerXPos -= 20;
+  }
+
+  @Override
+  public void keyPressed(KeyEvent e) {
+    int key = e.getKeyCode();
+    if (key == KeyEvent.VK_KP_RIGHT || key == KeyEvent.VK_RIGHT) {
+      if (playerXPos >= 600) {
+        playerXPos = 600;
+      } else {
+        moveRight();
+      }
+    }
+    if (key == KeyEvent.VK_KP_LEFT || key == KeyEvent.VK_LEFT) {
+      if (playerXPos < 10) {
+        playerXPos = 10;
+      } else {
+        moveLeft();
+      }
+    }
+
   }
 
   @Override
@@ -108,7 +109,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         ballXDir = -ballXDir;
       }
     }
-
     repaint();
   }
 
