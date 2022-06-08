@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Font;
 import java.awt.Color;
 
 import javax.swing.Timer;
@@ -46,6 +48,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     g.setColor(Color.black);
     g.fillRect(1, 1, 692, 592);
 
+    // scores
+    g.setColor(Color.white);
+    g.setFont(new Font("serif", Font.BOLD, 25));
+    g.drawString(""+score, 675, 565);
+
     // borders
     g.setColor(Color.CYAN);
     g.fillRect(0, 0, 3, 591);
@@ -76,14 +83,14 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
   @Override
   public void keyPressed(KeyEvent e) {
     int key = e.getKeyCode();
-    if (key == KeyEvent.VK_KP_RIGHT || key == KeyEvent.VK_RIGHT) {
+    if (key == KeyEvent.VK_KP_RIGHT || key == KeyEvent.VK_RIGHT || key == 39) {
       if (playerXPos >= 600) {
         playerXPos = 600;
       } else {
         moveRight();
       }
     }
-    if (key == KeyEvent.VK_KP_LEFT || key == KeyEvent.VK_LEFT) {
+    if (key == KeyEvent.VK_KP_LEFT || key == KeyEvent.VK_LEFT || key == 37) {
       if (playerXPos < 10) {
         playerXPos = 10;
       } else {
